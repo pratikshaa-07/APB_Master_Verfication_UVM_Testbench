@@ -24,7 +24,7 @@ class active_monitor extends uvm_monitor;
   //  capturing from interface
   //----------------------------------------------------
   task send_to_inf();
-    req = seq_item::type_id::create("req", this);
+    req = seq_item::type_id::create("req");
     
     req.transfer     = vif.mon_cb.transfer;
     req.PRESET_n     = vif.mon_cb.PRESET_n;

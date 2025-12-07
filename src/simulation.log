@@ -1,0 +1,71 @@
+# vsim -vopt work.top -voptargs="+acc=npr" -assertdebug -l simulation.log -coverage -c -do "coverage save -onexit -assert -directive -cvg -codeAll coverage.ucdb; run -all; exit" 
+# Start time: 23:20:28 on Dec 07,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "apb_master(fast)".
+# ** Warning: driver.sv(59): (vopt-2240) Treating stand-alone use of function 'randomize' as an implicit VOID cast.
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.intf(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.apb_pkg(fast)
+# Loading work.top(fast)
+# Loading work.intf(fast)
+# Loading work.assertions_apb(fast)
+# Loading work.apb_master(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# coverage save -onexit -assert -directive -cvg -codeAll coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test regression_test...
+# ** Fatal: (SIGSEGV) Bad handle or reference.
+#    Time: 0 ns  Iteration: 15  Process: /uvm_pkg::uvm_phase::m_run_phases/#FORK#1847_f6d6860 File: /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_common_phases.svh
+# Fatal error in Function apb_pkg/environment::connect_phase at environment.sv line 42
+# 
+# HDL call sequence:
+# Stopped at environment.sv 42 Function apb_pkg/environment::connect_phase
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_common_phases.svh 96 Function uvm_pkg/uvm_connect_phase::exec_func
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_bottomup_phase.svh 108 Function uvm_pkg/uvm_bottomup_phase::execute
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_bottomup_phase.svh 81 Function uvm_pkg/uvm_bottomup_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_bottomup_phase.svh 61 Function uvm_pkg/uvm_bottomup_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_bottomup_phase.svh 61 Function uvm_pkg/uvm_bottomup_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_phase.svh 1156 Task uvm_pkg/uvm_phase::execute_phase
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_phase.svh 1847 Task uvm_pkg/uvm_phase::m_run_phases
+# 
+#  exit
+# End time: 23:20:32 on Dec 07,2025, Elapsed time: 0:00:04
+# Errors: 2, Warnings: 1

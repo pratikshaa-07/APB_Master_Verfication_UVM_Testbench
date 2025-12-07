@@ -39,10 +39,10 @@ class environment extends uvm_env;
     // ================= PASSIVE MONITOR CONNECTIONS =================//
 
     // passive monitor to subscriber
-    p_agent.p_mon_h.send_port.connect(sub.cov_passive_mon_port);
+    p_agent.p_mon_h.send_pport.connect(sub.cov_passive_mon_port);
 
     // passive monitor → scoreboard ACTUAL FIFO
-    p_agent.p_mon_h.send_port.connect(scb.actual_fifo.analysis_export);
+    p_agent.p_mon_h.send_pport.connect(scb.actual_fifo.analysis_export);
 
   endfunction
 
