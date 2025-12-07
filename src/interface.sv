@@ -1,4 +1,4 @@
-`include "uvm_macros.svh"
+//`include "uvm_macros.svh"
 
 interface intf(input bit PCLK);
 
@@ -28,13 +28,13 @@ interface intf(input bit PCLK);
   // DRIVER CLOCKING BLOCK
   //=========================
   clocking drv_cb @(posedge PCLK);
-    default input #0 output #0;
+    default input #0 output #0; //very importatnt !!!
 
-    // DUT outputs seen by driver (input to driver)
+    // DUT outputs driver inputs
     input  PWRITE, PADDR, PENABLE, PWDATA, PSEL,
            error, transfer_done, rdata_out, PSTRB;
 
-    // Driver drives these (output from driver)
+    // Driver output
     output PRESET_n, PSLVERR, PRDATA, PREADY,
            transfer, write_read, addr_in, wdata_in, strb_in;
   endclocking

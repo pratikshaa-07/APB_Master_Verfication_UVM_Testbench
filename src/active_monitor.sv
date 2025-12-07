@@ -1,6 +1,6 @@
 class active_monitor extends uvm_monitor;
   
-  virtual intf.MON vif;
+  virtual intf vif;
 
   seq_item req;                      
   uvm_analysis_port#(seq_item) send_port;  
@@ -21,7 +21,7 @@ class active_monitor extends uvm_monitor;
   endfunction
   
   //----------------------------------------------------
-  // SAMPLE SIGNALS → CREATE ITEM → WRITE TO PORT
+  //  capturing from interface
   //----------------------------------------------------
   task send_to_inf();
     req = seq_item::type_id::create("req", this);
@@ -36,25 +36,9 @@ class active_monitor extends uvm_monitor;
     req.PSLVERR      = vif.mon_cb.PSLVERR;
     req.PRDATA       = vif.mon_cb.PRDATA;
     `uvm_info("ACTIVE-MONITOR", $sformatf("Got : transfer=%0d reset=%0d strb_in=%0d wdata_in=%0d write_read=%0d adddr_in=%0d pready = %od pslverr=%0d prdata=%0d",req.transfer,req.PRESET_n,req.strb_in,req.wdata_in,req.write_read,req.addr_in,req.PREADY,req.PSLVERR,req.PRDATA), UVM_LOW)
-    send_port.write(req);
-    
-    if(vif.mon_cb.PSEL==1)
-      begin
-        $display("ACTIVE-MON inside PSEL");
-        @(vif.mon_cb);
-    req.transfer     = vif.mon_cb.transfer;
-    req.PRESET_n     = vif.mon_cb.PRESET_n;
-    req.strb_in      = vif.mon_cb.strb_in;
-    req.wdata_in     = vif.mon_cb.wdata_in;
-    req.write_read   = vif.mon_cb.write_read;
-    req.addr_in      = vif.mon_cb.addr_in;
-    req.PREADY       = vif.mon_cb.PREADY;
-    req.PSLVERR      = vif.mon_cb.PSLVERR;
-    req.PRDATA       = vif.mon_cb.PRDATA;
-        send_port.write(req);
-        @(vif.mon_cb);
-      end
-  endtask
+     send_port.write(req);
+
+endtask
   
   task monitor();
     send_to_inf();
@@ -65,7 +49,8 @@ class active_monitor extends uvm_monitor;
     super.run_phase(phase);
     repeat(4) @(vif.mon_cb);
       
-    forever begin
+    forever 
+      begin
       monitor();
     end
   endtask

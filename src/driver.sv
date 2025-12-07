@@ -28,6 +28,7 @@ class driver extends uvm_driver#(seq_item);
       begin
         if(req.transfer == 1)
         begin
+          
           //repeat(1) @(vif.drv_cb);
           
           
@@ -38,18 +39,19 @@ class driver extends uvm_driver#(seq_item);
           `uvm_info("DRIVER", $sformatf("[drv-%0d] sent strb=%0d | wdata=%0d | read_write = %0d | address =%0d",i,req.strb_in,req.wdata_in,req.write_read,req.addr_in), UVM_LOW)
           
           //repeat(2) @(vif.drv_cb);
-          wait(vif.drv_cb.PSEL);
-          wait(vif.drv_cb.PENABLE);
+          //wait(vif.drv_cb.PSEL);
+          repeat(1) @(vif.drv_cb);
           if(req.PREADY == 1)
             begin
               vif.drv_cb.PREADY  <= req.PREADY;
               vif.drv_cb.PSLVERR <= req.PSLVERR;
               vif.drv_cb.PRDATA  <= req.PRDATA;
-              `uvm_info("DRIVER", $sformatf("[drv-%0d] PREADY is 1 No wait cycles --- sent  PREADY=%0d | PSLVERR = %0d | PADDR =%0d",i,req.PREADY,req.PSLVERR,req.PRDATA), UVM_LOW)
-             // @(vif.drv_cb);
+              `uvm_info("DRIVER", $sformatf("[drv-%0d] PREADY is 1 No wait cycles --- sent  PREADY=%0d | PSLVERR = %0d | PRDATA =%0d",i,req.PREADY,req.PSLVERR,req.PRDATA), UVM_LOW)
+            @(vif.drv_cb);
             end
           else
             begin
+              vif.drv_cb.PREADY<=req.PREADY;
               while(req.PREADY!=1)     
                 begin
                   $display("DRIVER INSIDE WAIT CYCLE");
@@ -60,7 +62,7 @@ class driver extends uvm_driver#(seq_item);
               vif.drv_cb.PSLVERR <= req.PSLVERR;
               vif.drv_cb.PRDATA  <= req.PRDATA;
               `uvm_info("DRIVER", $sformatf("[drv-%0d] Got PREADY as 1 --- sent  PREADY=%0d | PSLVERR = %0d | PADDR =%0d",i,req.PREADY,req.PSLVERR,req.PRDATA), UVM_LOW)
-              @(vif.drv_cb);
+              //@(vif.drv_cb);
             end           
         end
       end

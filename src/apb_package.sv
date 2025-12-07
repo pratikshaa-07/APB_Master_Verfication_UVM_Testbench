@@ -1,6 +1,8 @@
+`include "uvm_macros.svh"
+
 package apb_pkg;
-  `include "uvm_pkg.sv"
-  `include "uvm_macros.svh"
+import uvm_pkg::*;
+//  `include "uvm_pkg.sv"
   //`include "morse_defines.sv"
   `include "seq_item.sv"
   `include "sequence.sv"
@@ -10,8 +12,8 @@ package apb_pkg;
   `include "passive_monitor.sv"
   `include "active_agent.sv"
   `include "passive_agent.sv"
-  //`include "subscriber.sv"
   `include "scoreboard.sv"
+  `include "subscriber.sv"
   `include "environment.sv"
   `include "test.sv"
 endpackage

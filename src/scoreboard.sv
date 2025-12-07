@@ -81,7 +81,13 @@ task assign_expected(seq_item actual, seq_item expected);
 
 
   //---------------- SETUP PHASE ----------------//
-  else if (setup_phase == 1 && extra_phase == 0) begin
+  else if (setup_phase == 1 && extra_phase == 0) 
+    begin
+      stored_rd_wrt  = expected.write_read;
+      stored_wdata   = expected.wdata_in;
+      stored_strobe  = expected.strb_in;
+      stored_addr    = expected.addr_in;
+
 
     if (actual.PSEL != 1) begin
       access_phase = 0;
@@ -102,7 +108,8 @@ task assign_expected(seq_item actual, seq_item expected);
     expected.transfer_done = 0;
     expected.error         = 0;
 
-    if (expected.PWRITE) begin
+    if (expected.PWRITE) 
+      begin
       stored_rd_wrt        = expected.write_read;
       expected.PWDATA      = expected.wdata_in;
       stored_wdata         = expected.wdata_in;
@@ -133,19 +140,23 @@ task assign_expected(seq_item actual, seq_item expected);
 
 
   //---------------- EXTRA SETUP ----------------//
-  else if (setup_phase == 1 && extra_phase == 1) begin
+  else if (setup_phase == 1 && extra_phase == 1) 
+    begin
 
-    if (actual.PSEL != 1) begin
+    if (actual.PSEL != 1) 
+      begin
       access_phase = 0;
       setup_phase  = 1;
       extra_phase  = 1;
       fail_count++;
-      $display("PSEL not yet asserted in EXTRA SETUP PHASE");
+        `uvm_error("SCOREBOARD-EXTRA-PHASE","PSEL not yet asserted in SETUP PHASE");
     end
-    else begin
+    else 
+      begin
       access_phase = 1;
       setup_phase  = 0;
       extra_phase  = 0;
+      `uvm_error("SCOREBOARD-EXTRA-PHASE","PSEL was asserted too late - moving to ACCESS PHASE")
     end
         `uvm_info("SCOREBOARD",
                   $sformatf("EXTRA PHASE [INPUTS]: transfer=%0d reset=%0d strb=%0d wdata=%0d wr_rd=%0d addr=%0d pready=%0d pslverr=%0d prdata=%0d",
@@ -160,16 +171,14 @@ task assign_expected(seq_item actual, seq_item expected);
                   actual.PWDATA, actual.PSTRB, actual.rdata_out,
                   actual.transfer_done, actual.error),
         UVM_LOW)
-    // REPORT HERE
-    report_result(expected, actual);
-    //return;
   end
 
 
   //---------------- ACCESS PHASE ----------------//
   else if (access_phase == 1 && extra_phase == 0) begin
 
-    if (expected.PREADY == 1) begin
+    if (expected.PREADY == 1) 
+      begin
         
       setup_phase  = 1;
       access_phase = 0;
@@ -180,27 +189,30 @@ task assign_expected(seq_item actual, seq_item expected);
       expected.PSEL          = 1;
       expected.PADDR         = expected.addr_in;
 
-      if (stored_rd_wrt) begin
+      if (stored_rd_wrt) 
+        begin
         expected.write_read = 1;
         expected.PSTRB      = stored_strobe;
-        expected.PWDATA     = expected.wdata_in;
+        expected.PWDATA = stored_wdata;
         expected.rdata_out  = 0;
       end
       else begin
-        expected.write_read = 0;
-        expected.PSTRB      = 0;
-        expected.PWDATA     = 0;
+        expected.write_read = 'b0;
+        expected.PSTRB      = 'b0;
+        expected.PWDATA     = 'b0;
         expected.rdata_out  = expected.PRDATA;
       end
     end 
-    else begin
+    else 
+      begin
       expected.transfer_done = 0;
       expected.error         = 0;
       expected.PSEL          = 1;
       expected.PENABLE       = 1;
       expected.PADDR         = expected.addr_in;
 
-      if (stored_rd_wrt) begin
+      if (stored_rd_wrt) 
+        begin
         expected.write_read = 1;
         expected.PSTRB      = stored_strobe;
         expected.PWDATA     = stored_wdata;
@@ -208,8 +220,8 @@ task assign_expected(seq_item actual, seq_item expected);
       end
       else begin
         expected.write_read = 0;
-        expected.PSTRB      = 0;
-        expected.PWDATA     = 0;
+        expected.PSTRB      = 'b0;
+        expected.PWDATA     = 'b0;
         expected.rdata_out  = 0;
       end
     end
@@ -285,6 +297,9 @@ endtask
     else begin
       fail_count++;
     end
+    
+    if(act.transfer_done==1 || exp.PRESET_n==0 || exp.transfer==0)
+      $display("-------------------------------%0t-----------------------------------",$time);
   endtask
 
 
@@ -295,4 +310,6 @@ endtask
   endfunction
 
 endclass
+
+
 
