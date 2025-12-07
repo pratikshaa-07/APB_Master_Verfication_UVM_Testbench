@@ -3,11 +3,13 @@ class driver extends uvm_driver#(seq_item);
   virtual intf.DRV vif;
   bit prev_transfer;
   static int i;
+  bit count;
   `uvm_component_utils(driver)
   
   function new(string name="",uvm_component parent);
     super.new(name,parent);
     i=0;
+    count=0;
   endfunction
   
   function void build_phase(uvm_phase phase);
@@ -24,7 +26,7 @@ class driver extends uvm_driver#(seq_item);
     vif.drv_cb.PRESET_n    <= req.PRESET_n;
     `uvm_info("DRIVER", $sformatf("[drv-%0d]sent transfer=%0d reset=%0d",i,req.transfer,req.PRESET_n), UVM_LOW)
 
-    if(req.PRESET_n == 1)       
+    if(req.PRESET_n == 1 && count==1)       
       begin
         if(req.transfer == 1)
         begin
@@ -66,6 +68,8 @@ class driver extends uvm_driver#(seq_item);
             end           
         end
       end
+      //else if(req.PRESET_n==1 && count==0)
+
 //         else if(req.transfer == 1 && prev_transfer == 1)
 //           begin
 //             prev_transfer = req.transfer;

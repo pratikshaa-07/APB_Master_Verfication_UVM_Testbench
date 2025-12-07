@@ -36,7 +36,8 @@ class base_sequence extends uvm_sequence#(seq_item);
       `uvm_do_with(req, { PRESET_n == 1'b0; })
     end
 
-    repeat(5) begin
+    repeat(500) 
+    begin
       `uvm_do_with(req, { transfer == 1'b1; PRESET_n == 1'b1; })
     end
 
@@ -59,7 +60,7 @@ class pready_1_seq extends uvm_sequence#(seq_item);
       begin
         `uvm_do_with(req, { PRESET_n == 1'b0; })
       end
-    repeat(2)
+    repeat(500)
       begin
         `uvm_do_with(req, { PREADY == 1'b1; PRESET_n == 1'b1; })
       end
@@ -81,7 +82,7 @@ class pready_rand_seq extends uvm_sequence#(seq_item);
       begin
         `uvm_do_with(req, { PRESET_n == 1'b0; })
       end
-    repeat(2)
+    repeat(500)
       begin
         `uvm_do_with(req, { transfer == 1'b1; PRESET_n == 1'b1; })
       end
@@ -103,7 +104,7 @@ class transfer_rand_seq extends uvm_sequence#(seq_item);
       begin
         `uvm_do_with(req, { PRESET_n == 1'b0; })
       end
-    repeat(2)
+    repeat(500)
       begin
         `uvm_do_with(req, { PREADY == 1'b1; PRESET_n == 1'b1; })
       end
@@ -125,7 +126,7 @@ class rand_seq extends uvm_sequence#(seq_item);
       begin
         `uvm_do_with(req, { PRESET_n == 1'b0; })
       end
-    repeat(2)
+    repeat(500)
       begin
         `uvm_do_with(req, { PRESET_n == 1'b1; })
       end
@@ -149,7 +150,7 @@ class mid_reset_1 extends uvm_sequence#(seq_item);
       begin
         `uvm_do_with(req, { PRESET_n == 1'b0; })
       end
-    repeat(2)
+    repeat(500)
       begin
         `uvm_do_with(req, { PREADY==1'b1; })
       end
@@ -172,7 +173,7 @@ class mid_reset_2 extends uvm_sequence#(seq_item);
       begin
         `uvm_do_with(req, { PRESET_n == 1'b0; })
       end
-    repeat(2)
+    repeat(500)
       begin
         `uvm_do_with(req, { transfer == 1'b1;})
       end
