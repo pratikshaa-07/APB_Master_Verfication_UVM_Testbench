@@ -2,7 +2,8 @@ interface assertions_apb(
   PCLK, PRESET_n, transfer, PSLVERR, write_read, addr_in, wdata_in,
   PRDATA, PREADY, strb_in,
   PSEL, PSTRB, PWDATA, PADDR, PWRITE, PENABLE,
-  error, transfer_done, rdata_out);
+  error, transfer_done, rdata_out
+);
 
   // input signals (from TB to DUT)
   input PCLK;
@@ -33,7 +34,7 @@ interface assertions_apb(
   
   property p1;
     @(posedge PCLK)
-    !PRESET_n |=> (PSEL=='b0 && PWDATA=='b0 && PSTRB=='b0 && 
+    !PRESET_n |-> (PSEL=='b0 && PWDATA=='b0 && PSTRB=='b0 && 
                    PADDR=='b0 && PWRITE=='b0 && PENABLE=='b0 && 
                    error=='b0 && transfer_done=='b0 && rdata_out=='b0); 
   endproperty
@@ -46,10 +47,10 @@ interface assertions_apb(
   //---------------------------//
   //----transfer_done_check----//
   //---------------------------//
-  /*  
+    
   property p2;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
-    (PENABLE && PREADY) |-> transfer_done;
+    (PSEL && PREADY && PENABLE) |-> transfer_done;
   endproperty
     
   transfer_done_check: assert property (p2)
@@ -57,7 +58,7 @@ interface assertions_apb(
   else
     $error("TRANSFER_DONE_CHECK-assertion failed %0t",$time);
       
-    */
+    
   //-----------------------------//
   //-----PENABLE CHECK-----------//
   //-----------------------------//      
@@ -71,12 +72,12 @@ interface assertions_apb(
     $info("PENABLE_CHECK-assertion passed %0t",$time);
   else
     $error("PENABLE_CHECK-assertion failed %0t",$time);
-       
+        
   //-------------------------------------------//
   //-----stability of psel and penable----------//
   //------------------------------------------//    
     
-  /*property p4;
+  property p4;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
     (PSEL && PENABLE) |-> (PSEL && PENABLE) until_with PREADY;
   endproperty
@@ -85,38 +86,38 @@ interface assertions_apb(
     $info("psel_penable_stability-assertion passed %0t",$time);
   else
     $error("psel_penable_stability-assertion failed %0t",$time);
-    */      
+          
   //-------------------------------------------//
   //--------phase transition check-------------//
   //------------------------------------------//    
     
-  /*property p5;
+  property p5;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
-    transfer |=> PSEL |=> PENABLE ##[0:$] PREADY;
+    $rose(PSEL) |=> PENABLE ##[0:$] PREADY##1 !PENABLE;
   endproperty
         
   phase_transition_check: assert property (p5)
     $info("phase_transition_check-assertion passed %0t",$time);
   else
     $error("phase_transition_check-assertion failed %0t",$time);
-    */        
+            
   //-----------------------------------------------------------//
-  //-------pwrite =1 and prdata=0 and pwdata is known value-----//
+  //-------pwrite =1 and prdata=0 and pwdata is known value----//
   //-----------------------------------------------------------//    
-    /*
+    
   property p6;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
-    (PWRITE && PREADY) |-> (rdata_out=='b0 && !($isunknown(PWDATA)));
+    (PWRITE && PREADY) |-> ($stable(rdata_out) && !($isunknown(PWDATA)));
   endproperty
         
   pwrite_rdata_check: assert property (p6)
     $info("pwrite_rdata_out_check-assertion passed %0t",$time);
   else
     $error("pwrite_rdata_out_check-assertion failed %0t",$time);           
-      */     
+           
 
   //-----------------------------------------------------------//
-  //-------pwrite =0 and pwdata=0 and prdata is known value-----//
+  //-------pwrite =0 and pwdata=0 and prdata is known value
   //-----------------------------------------------------------//    
     
   property p7;
