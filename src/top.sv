@@ -77,7 +77,7 @@ module top;
 //       run_test("rand_seq_test");
 //       run_test("mid_reset_1_test");
 //       run_test("mid_reset_2_test");
-      run_test("regression_test");
+       run_test("regression_test");
     #10;
     $finish;
   end

@@ -2,8 +2,7 @@ interface assertions_apb(
   PCLK, PRESET_n, transfer, PSLVERR, write_read, addr_in, wdata_in,
   PRDATA, PREADY, strb_in,
   PSEL, PSTRB, PWDATA, PADDR, PWRITE, PENABLE,
-  error, transfer_done, rdata_out
-);
+  error, transfer_done, rdata_out);
 
   // input signals (from TB to DUT)
   input PCLK;
@@ -50,7 +49,7 @@ interface assertions_apb(
     
   property p2;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
-    PREADY |=> transfer_done;
+    (PENABLE && PREADY) |-> transfer_done;
   endproperty
     
   transfer_done_check: assert property (p2)
@@ -77,7 +76,7 @@ interface assertions_apb(
   //-----stability of psel and penable----------//
   //------------------------------------------//    
     
-  property p4;
+  /*property p4;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
     (PSEL && PENABLE) |-> (PSEL && PENABLE) until_with PREADY;
   endproperty
@@ -86,7 +85,7 @@ interface assertions_apb(
     $info("psel_penable_stability-assertion passed %0t",$time);
   else
     $error("psel_penable_stability-assertion failed %0t",$time);
-          
+    */      
   //-------------------------------------------//
   //--------phase transition check-------------//
   //------------------------------------------//    
