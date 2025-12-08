@@ -2,29 +2,29 @@ var g_data = {
 f7:{
 scopes:[{link:'z.htm?f=0&s=7',val:'work.apb_master'}]
 ,FSMs:[{dummy:0}
-,{anchor:'cvg381',items:[{c:'Y',p:'87.50',z:'state'}
-,{cr:'c',s:'1',z:'IDLE',h:'12',c:'g'}
-,{cr:'c',z:'IDLE -> SETUP',h:'10',c:'g'}
-,{cr:'c',s:'1',z:'SETUP',h:'10',c:'g'}
-,{cr:'c',z:'SETUP -> ACCESS',h:'10',c:'g'}
+,{anchor:'cvg380',items:[{c:'Y',p:'87.50',z:'state'}
+,{cr:'c',s:'1',z:'IDLE',h:'2954',c:'g'}
+,{cr:'c',z:'IDLE -> SETUP',h:'2135',c:'g'}
+,{cr:'c',s:'1',z:'SETUP',h:'2135',c:'g'}
+,{cr:'c',z:'SETUP -> ACCESS',h:'2135',c:'g'}
 ,{cr:'m',z:'SETUP -> IDLE',h:'0',c:'r'}
-,{cr:'c',s:'1',z:'ACCESS',h:'12',c:'g'}
-,{cr:'c',z:'ACCESS -> IDLE',h:'10',c:'g'}
+,{cr:'c',s:'1',z:'ACCESS',h:'2502',c:'g'}
+,{cr:'c',z:'ACCESS -> IDLE',h:'2135',c:'g'}
 ]}
 
 ],
 },
-f359:{
-scopes:[{s:'9',b:'1',val:'top'},{link:'z.htm?f=0&s=359',val:'u_apb_master'}]
+f358:{
+scopes:[{s:'9',b:'1',val:'top'},{link:'z.htm?f=0&s=358',val:'u_apb_master'}]
 ,FSMs:[{dummy:0}
-,{anchor:'cvg381',items:[{c:'Y',p:'87.50',z:'state'}
-,{cr:'c',s:'1',z:'IDLE',h:'12',c:'g'}
-,{cr:'c',z:'IDLE -> SETUP',h:'10',c:'g'}
-,{cr:'c',s:'1',z:'SETUP',h:'10',c:'g'}
-,{cr:'c',z:'SETUP -> ACCESS',h:'10',c:'g'}
+,{anchor:'cvg380',items:[{c:'Y',p:'87.50',z:'state'}
+,{cr:'c',s:'1',z:'IDLE',h:'2954',c:'g'}
+,{cr:'c',z:'IDLE -> SETUP',h:'2135',c:'g'}
+,{cr:'c',s:'1',z:'SETUP',h:'2135',c:'g'}
+,{cr:'c',z:'SETUP -> ACCESS',h:'2135',c:'g'}
 ,{cr:'m',z:'SETUP -> IDLE',h:'0',c:'r'}
-,{cr:'c',s:'1',z:'ACCESS',h:'12',c:'g'}
-,{cr:'c',z:'ACCESS -> IDLE',h:'10',c:'g'}
+,{cr:'c',s:'1',z:'ACCESS',h:'2502',c:'g'}
+,{cr:'c',z:'ACCESS -> IDLE',h:'2135',c:'g'}
 ]}
 
 ],

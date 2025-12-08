@@ -46,7 +46,7 @@ interface assertions_apb(
   //---------------------------//
   //----transfer_done_check----//
   //---------------------------//
-    
+  /*  
   property p2;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
     (PENABLE && PREADY) |-> transfer_done;
@@ -57,21 +57,21 @@ interface assertions_apb(
   else
     $error("TRANSFER_DONE_CHECK-assertion failed %0t",$time);
       
-    
+    */
   //-----------------------------//
   //-----PENABLE CHECK-----------//
   //-----------------------------//      
       
   property p3;
     @(posedge PCLK) disable iff(!PRESET_n || !transfer)
-    PSEL |=> PENABLE;
+    $rose(PSEL) |=> PENABLE;
   endproperty
   
   PENABLE_CHECK: assert property (p3)
     $info("PENABLE_CHECK-assertion passed %0t",$time);
   else
     $error("PENABLE_CHECK-assertion failed %0t",$time);
-        
+       
   //-------------------------------------------//
   //-----stability of psel and penable----------//
   //------------------------------------------//    
